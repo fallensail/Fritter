@@ -1,0 +1,41 @@
+<div id="following tweets">
+
+  <p>Welcome to the following page, {{currentUser}} (<a href="#" id="logout-link">logout</a>) </p>
+  
+  <div>
+    <div class="error"></div>
+    <label for="new-tweet-input">Add a new tweet:</label>
+    <input type="text" id="new-tweet-input" />
+    <button id="submit-new-tweet">Add</button>
+  </div>
+
+  <h1><a href="#" id="all_tweet">All Tweets </a> Following Tweets </h1>
+
+  {{#each tweets}}
+    {{#ifNeedfollow username ../follows}}
+    {{else}}
+      <div class="tweet" data-tweet-id={{tweet_id}}>      
+        <p>{{content}}</p>
+        <div class ="creator">posted by {{username}}</div>
+        {{#ifCond username "==="../currentUser}}
+          <a href="#" class="edit-tweet">Edit</a>
+          <a href="#" class="delete-tweet">Delete</a>
+        {{else}}
+          <a href="#" class="Re-tweet">Retweet</a>
+        {{/ifCond}}
+        <br>
+        {{#ifCond original "===" username }}
+          {{#ifCond from "===" username }}
+            <div class = "original"> ORIGINAL POST </div>
+          {{else}}
+            <div class = "not original"> Original by {{original}}</div>
+            <div class = "not original"> Passed from {{from}}</div> 
+          {{/ifCond}}
+        {{else}}
+            <div class = "not original"> Original by {{original}}</div>
+            <div class = "not original"> Passed from {{from}}</div> 
+        {{/ifCond}}
+      </div>
+    {{/ifNeedfollow}}
+  {{/each}}
+</div>

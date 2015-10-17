@@ -1,0 +1,45 @@
+<div id="tweets">
+
+  <p>Welcome, {{currentUser}} (<a href="#" id="logout-link">logout</a>) </p>
+  
+  <div>
+    <div class="error"></div>
+    <label for="new-tweet-input">Add a new tweet:</label>
+    <input type="text" id="new-tweet-input" />
+    <button id="submit-new-tweet">Add</button>
+  </div>
+
+  <h1>All Tweets <a href="#" id="follow"> Following Tweets</a> </h1>
+
+  {{#each tweets}}
+    <div class="tweet" data-tweet-id={{tweet_id}}>
+    <p>{{content}}</p>
+    <div class ="creator">posted by {{username}}</div> 
+    {{#ifCond username "==="../currentUser}}
+    <a href="#" class="edit-tweet">Edit</a>
+    <a href="#" class="delete-tweet">Delete</a>
+    {{else}}
+    <a href="#" class="Re-tweet">Retweet</a>
+    {{#ifNeedfollow username ../follows}}
+    <button id="follow_key">Follow</button>
+    {{else}}
+    {{/ifNeedfollow}}
+    {{/ifCond}}
+    <br>
+    {{#ifCond original "===" username }}
+      {{#ifCond from "===" username }}
+        <div class = "original"> ORIGINAL POST </div>
+      {{else}}
+        <div class = "not original"> Original by {{original}}</div>
+        <div class = "not original"> Passed from {{from}}</div> 
+      {{/ifCond}}
+    {{else}}
+        <div class = "not original"> Original by {{original}}</div>
+        <div class = "not original"> Passed from {{from}}</div> 
+    {{/ifCond}}
+</div>
+  {{else}}
+    <p><em>No Tweets yet!</em></p>
+  {{/each}}
+
+</div>
